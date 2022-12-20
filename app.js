@@ -24,6 +24,22 @@ app.get("/", (rootGetReq, rootGetRes) => {
     homeContent: homeStartingContent,
     postingContent: posts
   });
+
+});
+
+app.get("/posts/:postName", (rootGetReq, rootGetRes) => {
+  let requestedTitle = rootGetReq.params.postName;
+
+  posts.forEach((post) => { 
+    if (post.title === requestedTitle) {
+      console.log("Match Found!");
+    } else {
+      console.log("No Match Found!");
+    }
+  });
+  if (rootGetReq.params.postName === "postTitle") {
+    console.log("Match Found!");
+  }
 });
 
 app.get("/about", (aboutGetReq, aboutGetRes) => {
@@ -48,9 +64,6 @@ app.post("/compose", (composePostReq, composePostRes) => {
 app.get("/contact", (contactGetReq, contactGetRes) => {
   contactGetRes.render("contact", { contactContent: contactContent });
 });
-
-
-
 
 
 app.listen(3000, function () {

@@ -43,14 +43,15 @@ app.get("/", (rootGetReq, rootGetRes) => {
 
 });
 
-app.get("/posts/:postName", (rootGetReq, rootGetRes) => {
-  let requestedTitle = rootGetReq.params.postName;
+app.get("/posts/:postName", (postsGetReq, postsGetRes) => {
+  let requestedTitle = postsGetReq.params.postName;
 
   posts.forEach((post) => {
     if (_.lowerCase(post.title) === _.lowerCase(requestedTitle)) {
-      console.log("Match Found!");
-    } else {
-      console.log("No Match Found!");
+      postsGetRes.render("post", {
+        postTitle: post.title,
+        postContent: post.content
+      });
     }
   });
 });
